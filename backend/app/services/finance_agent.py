@@ -7,6 +7,7 @@ from langchain_nvidia_ai_endpoints import ChatNVIDIA
 
 from app.core.memory import ConversationMemory
 from app.core.settings import Settings
+from app.services.response_formatter import ResponseFormatter
 from app.tools import CurrencyConverter, SafeCalculator, ToolError, ToolResult
 
 
@@ -20,6 +21,8 @@ Instructions:
 5. Ask one short clarification question when required data is missing.
 6. Keep answers grounded in the conversation history from the same session.
 7. After using a tool, explain the result in natural language and mention assumptions.
+8. Write plain text only. Do not use Markdown, HTML, tables, headings, bold markers, or code fences.
+9. If a list helps, use at most four short lines that start with "- ".
 """
 
 TOOL_DECISION_PROMPT = """
@@ -63,6 +66,10 @@ Requirements:
 - Be concise and useful.
 - If a tool was used, include the concrete result.
 - Include a short reminder that this is educational, not professional financial advice when relevant.
+- Use plain text only.
+- Do not use Markdown, HTML, tables, headings, bold markers, emojis, or code fences.
+- Use at most four short bullet lines when listing steps.
+- Prefer simple ASCII punctuation.
 """
 
 
@@ -80,6 +87,7 @@ class FinanceAgent:
         decision = await self._decide_tool(message, formatted_history)
         tool_result = await self._execute_tool(decision)
         reply = await self._create_reply(message, formatted_history, tool_result)
+        reply = ResponseFormatter.clean(reply)
         self.memory.add_turn(session_id, message, reply)
 
         return {
@@ -148,7 +156,7 @@ class FinanceAgent:
         )
         try:
             response = await self.llm.ainvoke([SystemMessage(content=SYSTEM_PROMPT), HumanMessage(content=prompt)])
-            return str(response.content).strip()
+            return ResponseFormatter.clean(str(response.content))
         except Exception:
             return self._fallback_reply(message, tool_result)
 
@@ -232,10 +240,10 @@ class FinanceAgent:
     @staticmethod
     def _fallback_reply(message: str, tool_result: ToolResult | None) -> str:
         if tool_result:
-            return (
-                f"{tool_result.output} This is an educational estimate, not professional financial advice."
+            return ResponseFormatter.clean(
+                f"{tool_result.output}\n\nThis is an educational estimate, not professional financial advice."
             )
-        return (
+        return ResponseFormatter.clean(
             "I can help with budgeting, savings calculations, and currency conversions. "
             "Ask me something like 'Convert 100 USD to EUR' or 'If I save 250 every month for 12 months, how much will I save?'"
         )

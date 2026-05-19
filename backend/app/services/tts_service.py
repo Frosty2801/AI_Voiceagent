@@ -1,11 +1,11 @@
 import logging
-import re
 import subprocess
 import wave
 from pathlib import Path
 from uuid import uuid4
 
 from app.core.settings import Settings
+from app.services.response_formatter import ResponseFormatter
 
 logger = logging.getLogger(__name__)
 
@@ -52,13 +52,7 @@ class TTSService:
 
     @staticmethod
     def _prepare_text(text: str) -> str:
-        clean = re.sub(r"\s+", " ", text).strip()
-        clean = re.sub(r"\*\*([^*]+)\*\*", r"\1", clean)
-        clean = re.sub(r"[*_`#>-]", " ", clean)
-        clean = clean.replace("%", " percent ")
-        clean = clean.replace("–", "-").replace("—", "-").replace("’", "'")
-        clean = re.sub(r"\s+", " ", clean).strip()
-        return clean[:500]
+        return ResponseFormatter.for_speech(text, max_length=500)
 
     @staticmethod
     def _convert_to_mp3(source: Path, target: Path) -> bool:
