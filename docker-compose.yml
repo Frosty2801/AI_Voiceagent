@@ -9,6 +9,7 @@ services:
       - NVIDIA_BASE_URL=${NVIDIA_BASE_URL:-https://integrate.api.nvidia.com/v1}
       - CURRENCY_API_BASE_URL=${CURRENCY_API_BASE_URL:-https://open.er-api.com/v6/latest}
       - ENABLE_COQUI_TTS=${ENABLE_COQUI_TTS:-true}
+      - COQUI_TTS_MODEL=${COQUI_TTS_MODEL:-tts_models/en/ljspeech/vits}
       - TTS_FALLBACK_ENABLED=${TTS_FALLBACK_ENABLED:-true}
       - FRONTEND_ORIGIN=${FRONTEND_ORIGIN:-*}
       - AUDIO_DIR=/tmp/voiceagent-audio

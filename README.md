@@ -79,6 +79,7 @@ NVIDIA_MODEL=meta/llama-3.1-70b-instruct
 NVIDIA_BASE_URL=https://integrate.api.nvidia.com/v1
 CURRENCY_API_BASE_URL=https://open.er-api.com/v6/latest
 ENABLE_COQUI_TTS=true
+COQUI_TTS_MODEL=tts_models/en/ljspeech/vits
 TTS_FALLBACK_ENABLED=true
 FRONTEND_ORIGIN=*
 ```

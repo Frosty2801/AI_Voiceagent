@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     nvidia_base_url: str = "https://integrate.api.nvidia.com/v1"
     currency_api_base_url: str = "https://open.er-api.com/v6/latest"
     enable_coqui_tts: bool = True
+    coqui_tts_model: str = "tts_models/en/ljspeech/vits"
     tts_fallback_enabled: bool = True
     audio_dir: str = "/tmp/voiceagent-audio"
     frontend_origin: str = "*"
