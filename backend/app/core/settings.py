@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     nvidia_model: str = "meta/llama-3.1-70b-instruct"
     nvidia_base_url: str = "https://integrate.api.nvidia.com/v1"
     currency_api_base_url: str = "https://open.er-api.com/v6/latest"
+    crypto_api_base_url: str = "https://api.coingecko.com/api/v3"
     enable_coqui_tts: bool = True
     coqui_tts_model: str = "tts_models/en/ljspeech/vits"
     tts_fallback_enabled: bool = True

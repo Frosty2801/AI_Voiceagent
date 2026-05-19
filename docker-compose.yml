@@ -8,6 +8,7 @@ services:
       - NVIDIA_MODEL=${NVIDIA_MODEL:-meta/llama-3.1-70b-instruct}
       - NVIDIA_BASE_URL=${NVIDIA_BASE_URL:-https://integrate.api.nvidia.com/v1}
       - CURRENCY_API_BASE_URL=${CURRENCY_API_BASE_URL:-https://open.er-api.com/v6/latest}
+      - CRYPTO_API_BASE_URL=${CRYPTO_API_BASE_URL:-https://api.coingecko.com/api/v3}
       - ENABLE_COQUI_TTS=${ENABLE_COQUI_TTS:-true}
       - COQUI_TTS_MODEL=${COQUI_TTS_MODEL:-tts_models/en/ljspeech/vits}
       - TTS_FALLBACK_ENABLED=${TTS_FALLBACK_ENABLED:-true}

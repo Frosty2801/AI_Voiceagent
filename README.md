@@ -10,6 +10,7 @@ The project is built with React, FastAPI, LangChain, NVIDIA AI Endpoints, and Co
 - Text or voice response mode.
 - Persistent visual badge when a tool is used.
 - Real currency conversion through a free public API.
+- Cryptocurrency price lookup through a public market data API.
 - Safe arithmetic calculator without Python `eval`.
 - Docker Compose setup for backend and frontend.
 - Browser speech fallback when Coqui TTS is unavailable.
@@ -19,6 +20,7 @@ The project is built with React, FastAPI, LangChain, NVIDIA AI Endpoints, and Co
 The assistant helps with simple personal finance workflows:
 
 - Currency conversion.
+- Cryptocurrency price checks.
 - Savings and budget calculations.
 - General educational budgeting guidance.
 
@@ -56,6 +58,23 @@ Example prompt:
 If I save 250 every month for 12 months, how much will I save?
 ```
 
+### `crypto_price_lookup`
+
+Gets current cryptocurrency prices and 24 hour percentage change through CoinGecko public API.
+
+Parameters:
+
+- `crypto_id`: CoinGecko coin id, for example `bitcoin` or `ethereum`.
+- `vs_currency`: target currency code, for example `usd`, `eur`, or `cop`.
+
+Example prompts:
+
+```text
+What is the current Bitcoin price in USD?
+How much is ETH in EUR?
+What is BTC price in COP?
+```
+
 ## Requirements
 
 - Docker and Docker Compose.
@@ -78,6 +97,7 @@ NVIDIA_API_KEY=your_key_here
 NVIDIA_MODEL=meta/llama-3.1-70b-instruct
 NVIDIA_BASE_URL=https://integrate.api.nvidia.com/v1
 CURRENCY_API_BASE_URL=https://open.er-api.com/v6/latest
+CRYPTO_API_BASE_URL=https://api.coingecko.com/api/v3
 ENABLE_COQUI_TTS=true
 COQUI_TTS_MODEL=tts_models/en/ljspeech/vits
 TTS_FALLBACK_ENABLED=true
@@ -150,6 +170,12 @@ Currency converter tool:
 Convert 100 USD to EUR.
 ```
 
+Crypto price tool:
+
+```text
+What is the current Bitcoin price in USD?
+```
+
 Memory:
 
 ```text
@@ -185,4 +211,5 @@ Frontend modules:
 - Session memory is stored in RAM and resets when the backend restarts.
 - Coqui TTS can be slow on CPU and increases Docker image size.
 - The public currency API can be rate-limited or temporarily unavailable.
+- The public crypto API can be rate-limited or temporarily unavailable.
 - RAG is intentionally excluded from the first implementation scope.
