@@ -25,16 +25,16 @@ Instructions:
 TOOL_DECISION_PROMPT = """
 Choose whether the assistant must use a tool before answering.
 Return only valid JSON with this shape:
-{
-  "tool": "currency_converter" | "safe_calculator" | "none",
-  "arguments": {
-    "amount": number,
-    "from_currency": "USD",
-    "to_currency": "EUR",
-    "expression": "250 * 12"
-  },
-  "reason": "short reason"
-}
+{{
+    "tool": "currency_converter" | "safe_calculator" | "none",
+    "arguments": {{
+        "amount": number,
+        "from_currency": "USD",
+        "to_currency": "EUR",
+        "expression": "250 * 12"
+    }},
+    "reason": "short reason"
+}}
 
 Tool descriptions:
 - currency_converter: {currency_description}
