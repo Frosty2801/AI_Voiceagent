@@ -1,5 +1,8 @@
 # Finance VoiceAgent
 
+Repository: https://github.com/Frosty2801/AI_Voiceagent.git
+
+
 <div align="center">
   <p><strong>Conversational personal finance assistant</strong> with text + voice modes, tool-backed answers, and real-time currency & crypto data.</p>
 </div>
