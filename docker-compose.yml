@@ -1,14 +1,28 @@
-version: '3.8'
 services:
   backend:
     build: ./backend
     ports:
       - "8000:8000"
     environment:
-      - NVIDIA_API_KEY=${NVIDIA_API_KEY}
-  frontend:
-    image: nginx:alpine
+      - NVIDIA_API_KEY=${NVIDIA_API_KEY:-}
+      - NVIDIA_MODEL=${NVIDIA_MODEL:-meta/llama-3.1-70b-instruct}
+      - NVIDIA_BASE_URL=${NVIDIA_BASE_URL:-https://integrate.api.nvidia.com/v1}
+      - CURRENCY_API_BASE_URL=${CURRENCY_API_BASE_URL:-https://open.er-api.com/v6/latest}
+      - ENABLE_COQUI_TTS=${ENABLE_COQUI_TTS:-true}
+      - TTS_FALLBACK_ENABLED=${TTS_FALLBACK_ENABLED:-true}
+      - FRONTEND_ORIGIN=${FRONTEND_ORIGIN:-*}
+      - AUDIO_DIR=/tmp/voiceagent-audio
     volumes:
-      - ./frontend:/usr/share/nginx/html:ro
+      - voiceagent_audio:/tmp/voiceagent-audio
+
+  frontend:
+    build: ./frontend
     ports:
-      - "8080:80"
+      - "5173:5173"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000
+    depends_on:
+      - backend
+
+volumes:
+  voiceagent_audio:
