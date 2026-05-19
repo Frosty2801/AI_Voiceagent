@@ -1,8 +1,52 @@
+# =============================
+# Environment & secrets
+# =============================
 .env
+
+# =============================
+# Python
+# =============================
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+*.pyd
+
 .venv/
+venv/
+ENV/
+
+# Coverage / test artifacts
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+
+# =============================
+# Node / React
+# =============================
 node_modules/
+
+# Vite/webpack build outputs
 dist/
+build/
+
+# Logs
+*.log
+
+# =============================
+# OS / IDE
+# =============================
 .DS_Store
+.DS_Store?
+
+# VSCode
+.vscode/
+
+# =============================
+# App runtime artifacts
+# =============================
+# Audio directory used by docker-compose (backend writes to /tmp/voiceagent-audio)
 voiceagent-audio/
+
